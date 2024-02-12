@@ -1,7 +1,5 @@
-FROM arangodb:3.9.2
-ADD ./dump/ /dump/
-#ADD entrypoint.sh /entrypoint.sh
-# ADD arangod.conf /arangod.conf
-# RUN chmod +x entrypoint.sh && /entrypoint.sh
-CMD ["/bin/sh", "/entrypoint.sh"]
+FROM arangodb:latest
 
+# to be used in healthcheck
+RUN apk --update --no-cache add curl
+CMD ["arangod", "--transaction.streaming-idle-timeout", "120"]
