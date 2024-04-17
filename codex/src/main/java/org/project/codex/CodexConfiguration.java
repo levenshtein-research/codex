@@ -5,8 +5,8 @@ import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@EnableArangoRepositories(basePackages = {"org.project.codex"})
+//@Configuration
+//@EnableArangoRepositories(basePackages = {"org.project.codex"})
 public class CodexConfiguration implements ArangoConfiguration {
 
     @Override

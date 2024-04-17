@@ -4,25 +4,21 @@ version: '3.9'
 # Separation of lifecycles / lifecycle awareness
 services:
   db:
-    image: arangodb:latest
+    image: arangodb:3.9.2
     ports:
       - 8529:8529
-    build:
-      context: ./docker/database
     container_name: db
     environment:
       - ARANGO_ROOT_USER=root
       # Docker secrets
       # https://docs.docker.com/engine/swarm/secrets/
       - ARANGO_ROOT_PASSWORD=openSesame
-    network_mode: host
     healthcheck:
       test: curl -f -u root:openSesame http://localhost:8529/_api/version || exit 1
       timeout: 5s
       interval: 10s
       retries: 10
-    volumes:
-      - arangodb_data_container:/var/lib/arangodb3
+
   app:
     build:
       context: ./codex
@@ -32,6 +28,3 @@ services:
         condition: service_healthy
     ports:
       - "8080:8080" 
-    network_mode: host
-volumes:
-  arangodb_data_container:
